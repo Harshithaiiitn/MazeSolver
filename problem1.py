@@ -38,6 +38,10 @@ def moves(board):
                 break 
         elif input_sequence[direction] == 'r':
             print("we need to move in right direction")
+            moves,success,board,brnjolf_row,brnjolf_column,guard1_row,guard1_column,guard2_row,guard2_column,exit_row,exit_column=movingRight(count,input_sequence,board,brnjolf_row,brnjolf_column,guard1_row,guard1_column,guard2_row,guard2_column,exit_row,exit_column)
+            if success=='yes' or success=='fail':
+                break
+
         elif input_sequence[direction] == 'u':
             print("we need to move in upward direction")
         elif input_sequence[direction] == 'd':
@@ -101,6 +105,55 @@ def isSuccess(g1_lose,g2_lose,b_lose,b_win,count,input_sequence,board):
         display(board)
         success='yes'
     return success
+
+def movingRight(count,input_sequence,board,brnjolf_row,brnjolf_column,guard1_row,guard1_column,guard2_row,guard2_column,exit_row,exit_column):
+    moves_count=0
+    b_win,b_lose,flag,board,brnjolf_row,brnjolf_column=moveRight('b',brnjolf_row,brnjolf_column,board,exit_row,exit_column)
+    moves_count=moves_count+flag
+    win,g1_lose,flag,board,guard1_row,guard1_column=moveRight('g1',guard1_row,guard1_column,board,exit_row,exit_column)
+    moves_count=moves_count+flag
+    win,g2_lose,flag,board,guard2_row,guard2_column=moveRight('g2',guard2_row,guard2_column,board,exit_row,exit_column)
+    moves_count=moves_count+flag
+    success=isSuccess(g1_lose,g2_lose,b_lose,b_win,count,input_sequence,board)
+    return moves_count,success,board,brnjolf_row,brnjolf_column,guard1_row,guard1_column,guard2_row,guard2_column,exit_row,exit_column
+
+def moveRight(person,current_row,current_column,board,exit_row,exit_column):
+    column=current_column
+    current_column=current_column+1
+    win='false'
+    lose='false'
+    flag=0
+    while(current_column<len(board)):
+        if board[current_row][current_column]=='F':
+            board[current_row][current_column]=person
+            board[current_row][current_column-1]='F'
+            column=current_column
+            current_column=current_column+1
+            flag=1
+        elif (board[current_row][current_column]=='e' and (person=='g1' or person=='g2')) or board[current_row][current_column]=='X':
+            break
+        elif board[current_row][current_column]=='g1'  and person=='b':
+            board[current_row][current_column]='g1'
+            board[current_row][current_column-1]='F'
+            lose='true'
+            break
+        elif  board[current_row][current_column]=='g2' and person=='b':
+            board[current_row][current_column]='g2'
+            board[current_row][current_column-1]='F'
+            lose='true'
+            break
+        elif (person=='g1' or person=='g2') and board[current_row][current_column]=='b':
+            board[current_row][current_column]=person
+            board[current_row][current_column-1]='F'
+            lose='true'
+            break
+
+        elif board[current_row][current_column]=='e' and person=='b':
+            board[current_row][current_column-1]='F'
+            win='true'
+            break
+    return win,lose,flag,board,current_row,column
+
 
 def find_position(person,board):
     for row in range(0,len(board)):
