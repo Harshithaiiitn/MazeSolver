@@ -19,41 +19,32 @@ def display(board):
         
 def moves(board):
     input_sequence=input('Enter input sequence : ')
-    print(input_sequence)
     guard1_row,guard1_column=find_position('g1',board)
     guard2_row,guard2_column=find_position('g2',board)
     brnjolf_row,brnjolf_column=find_position('b',board)
     exit_row,exit_column=find_position('e',board)
-    print('guard1 poisition :'+str(guard1_row)+","+str(guard1_column))
-    print('guard2 poisition :'+str(guard2_row)+","+str(guard2_column))
-    print('Brynjolf poisition :'+str(brnjolf_row)+","+str(brnjolf_column))
-    print('Exit position :'+str(exit_row)+","+str(exit_column)) 
     count=0
     for direction in range(0,len(input_sequence)):
         count=count+1
         moves_count=0
         if input_sequence[direction] =='l':
-            print("we need to move in left direction")
             moves,success,board,brnjolf_row,brnjolf_column,guard1_row,guard1_column,guard2_row,guard2_column,exit_row,exit_column= movingLeft(count,input_sequence,board,brnjolf_row,brnjolf_column,guard1_row,guard1_column,guard2_row,guard2_column,exit_row,exit_column)
             moves_count=moves_count+moves
             if success=='yes' or success=='fail':
                 break 
         elif input_sequence[direction] == 'r':
-            print("we need to move in right direction")
             moves,success,board,brnjolf_row,brnjolf_column,guard1_row,guard1_column,guard2_row,guard2_column,exit_row,exit_column=movingRight(count,input_sequence,board,brnjolf_row,brnjolf_column,guard1_row,guard1_column,guard2_row,guard2_column,exit_row,exit_column)
             moves_count=moves_count+moves
             if success=='yes' or success=='fail':
                 break
 
         elif input_sequence[direction] == 'u':
-            print("we need to move in upward direction")
             moves,success,board,brnjolf_row,brnjolf_column,guard1_row,guard1_column,guard2_row,guard2_column,exit_row,exit_column=movingUp(count,input_sequence,board,brnjolf_row,brnjolf_column,guard1_row,guard1_column,guard2_row,guard2_column,exit_row,exit_column)
             moves_count=moves_count+moves
             if success=='yes' or success=='fail':
                 break
 
         elif input_sequence[direction] == 'd':
-            print("we need to move in downward direction")
             moves,success,board,brnjolf_row,brnjolf_column,guard1_row,guard1_column,guard2_row,guard2_column,exit_row,exit_column=movingDown(count,input_sequence,board,brnjolf_row,brnjolf_column,guard1_row,guard1_column,guard2_row,guard2_column,exit_row,exit_column)
             moves_count=moves_count+moves
             if success=='yes' or success=='fail':
@@ -67,7 +58,6 @@ def moves(board):
             continue
 
 def movingLeft(count,input_sequence,board,brnjolf_row,brnjolf_column,guard1_row,guard1_column,guard2_row,guard2_column,exit_row,exit_column):
-    print("we need to invoke brynjolf move,guards moves in left direction")
     moves_count=0
     b_win,b_lose,flag,board,brnjolf_row,brnjolf_column=moveLeft('b',brnjolf_row,brnjolf_column,board,exit_row,exit_column)
     moves_count=moves_count+flag
