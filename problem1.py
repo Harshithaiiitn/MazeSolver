@@ -33,8 +33,9 @@ def moves(board):
         count=count+1
         if input_sequence[direction] =='l':
             print("we need to move in left direction")
-            moves_count,board,brnjolf_row,brnjolf_column,guard1_row,guard1_column,guard2_row,guard2_column,exit_row,exit_column= movingLeft(count,input_sequence,board,brnjolf_row,brnjolf_column,guard1_row,guard1_column,guard2_row,guard2_column,exit_row,exit_column)
-
+            moves_count,success,board,brnjolf_row,brnjolf_column,guard1_row,guard1_column,guard2_row,guard2_column,exit_row,exit_column= movingLeft(count,input_sequence,board,brnjolf_row,brnjolf_column,guard1_row,guard1_column,guard2_row,guard2_column,exit_row,exit_column)
+            if success=='yes' or success=='fail':
+                break 
         elif input_sequence[direction] == 'r':
             print("we need to move in right direction")
         elif input_sequence[direction] == 'u':
@@ -51,8 +52,9 @@ def movingLeft(count,input_sequence,board,brnjolf_row,brnjolf_column,guard1_row,
     moves_count=moves_count+flag
     win,g2_lose,flag,board,guard2_row,guard2_column=moveLeft('g2',guard2_row,guard2_column,board,exit_row,exit_column)
     moves_count=moves_count+flag
-    return moves_count,board,brnjolf_row,brnjolf_column,guard1_row,guard1_column,guard2_row,guard2_column,exit_row,exit_column
-            
+    success=isSuccess(g1_lose,g2_lose,b_lose,b_win,count,input_sequence,board)
+    return moves_count,success,board,brnjolf_row,brnjolf_column,guard1_row,guard1_column,guard2_row,guard2_column,exit_row,exit_column
+
 def moveLeft(person,current_row,current_column,board,exit_row,exit_column):
     column=current_column
     current_column=current_column-1
@@ -86,6 +88,19 @@ def moveLeft(person,current_row,current_column,board,exit_row,exit_column):
             break  
     return win,lose,flag,board,current_row,column
 
+def isSuccess(g1_lose,g2_lose,b_lose,b_win,count,input_sequence,board):
+    success='false'
+    if g1_lose=='true' or g2_lose=='true' or b_lose=='true':
+        print("lose:"+str(count)+" moves executed out of "+str(len(input_sequence)))
+        print('Displaying board after moves:')
+        display(board)
+        success='fail'
+    elif b_win=='true':
+        print("win:"+str(count)+" moves executed out of "+str(len(input_sequence)))
+        print('Displaying board after moves:')
+        display(board)
+        success='yes'
+    return success
 
 def find_position(person,board):
     for row in range(0,len(board)):
