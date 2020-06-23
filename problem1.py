@@ -28,7 +28,16 @@ def moves(board):
     print('guard2 poisition :'+str(guard2_row)+","+str(guard2_column))
     print('Brynjolf poisition :'+str(brnjolf_row)+","+str(brnjolf_column))
     print('Exit position :'+str(exit_row)+","+str(exit_column)) 
-    
+    for direction in range(0,len(input_sequence)):
+        if input_sequence[direction] =='l':
+            print("we need to move in left direction")
+        elif input_sequence[direction] == 'r':
+            print("we need to move in right direction")
+        elif input_sequence[direction] == 'u':
+            print("we need to move in upward direction")
+        elif input_sequence[direction] == 'd':
+            print("we need to move in downward direction")
+            
 def find_position(person,board):
     for row in range(0,len(board)):
         for col in range(0,len(board)):
