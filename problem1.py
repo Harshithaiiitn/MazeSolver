@@ -28,15 +28,22 @@ def moves(board):
     print('guard2 poisition :'+str(guard2_row)+","+str(guard2_column))
     print('Brynjolf poisition :'+str(brnjolf_row)+","+str(brnjolf_column))
     print('Exit position :'+str(exit_row)+","+str(exit_column)) 
+    count=0
     for direction in range(0,len(input_sequence)):
+        count=count+1
         if input_sequence[direction] =='l':
             print("we need to move in left direction")
+            movingLeft(count,input_sequence,board,brnjolf_row,brnjolf_column,guard1_row,guard1_column,guard2_row,guard2_column,exit_row,exit_column)
+
         elif input_sequence[direction] == 'r':
             print("we need to move in right direction")
         elif input_sequence[direction] == 'u':
             print("we need to move in upward direction")
         elif input_sequence[direction] == 'd':
             print("we need to move in downward direction")
+
+def movingLeft(count,input_sequence,matrix,brnjolf_row,brnjolf_column,guard1_row,guard1_column,guard2_row,guard2_column,exit_row,exit_column):
+    print("we need to invoke brynjolf move,guards moves in left direction")
             
 def find_position(person,board):
     for row in range(0,len(board)):
