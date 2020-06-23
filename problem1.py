@@ -5,9 +5,16 @@ def Fileparser(input_file):
         try:
             board = open(input_file).read()
             print('File readed successfully!!')
+            board=[item.split() for item in board.split('\n')]
+            display(board)
         except:
             print('File not found')
-    
+def display(board):
+    board_size=len(board)
+    for row in range(0,board_size):
+        for col in range(0,board_size):
+            print("%-2s"%(board[row][col]),end='  ')
+        print()
 
 if __name__=='__main__':
 
