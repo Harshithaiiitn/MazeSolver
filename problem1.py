@@ -7,6 +7,7 @@ def Fileparser(input_file):
             print('File readed successfully!!')
             board=[item.split() for item in board.split('\n')]
             display(board)
+            moves(board)
         except:
             print('File not found')
 def display(board):
@@ -15,6 +16,10 @@ def display(board):
         for col in range(0,board_size):
             print("%-2s"%(board[row][col]),end='  ')
         print()
+        
+def moves(board):
+    input_sequence=input('Enter input sequence : ')
+    print(input_sequence)
 
 if __name__=='__main__':
 
