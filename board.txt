@@ -1,0 +1,4 @@
+F X F X
+g1 F F e
+F b F F
+X F g2 F
